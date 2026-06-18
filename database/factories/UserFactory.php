@@ -13,12 +13,14 @@ use Illuminate\Support\Str;
 class UserFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
+     * huidige passord voor alle gebruikers. Dit is een statische variabele die wordt gedeeld tussen alle instanties van 
+     * de UserFactory. Het wordt gebruikt om ervoor te zorgen dat alle gegenereerde gebruikers hetzelfde wachtwoord hebben, wat handig
+     *  kan zijn voor testdoeleinden.  
      */
     protected static ?string $password;
 
     /**
-     * Define the model's default state.
+     * default state.
      *
      * @return array<string, mixed>
      */
@@ -34,7 +36,7 @@ class UserFactory extends Factory
     }
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * het email adres in het model moet undefined zijn
      */
     public function unverified(): static
     {
