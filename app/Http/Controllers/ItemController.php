@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Http\Requests\StoreItemRequest;
+use App\Http\Requests\UpdateItemRequest;
 
 class ItemController extends Controller
 {
@@ -27,12 +29,10 @@ class ItemController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-public function store(Request $request) {
-    // Valideert de inkomende gegevens
-    $validated = $request->validate([
-        'name' => 'required|max:255',
-        'description' => 'nullable',
-    ]);
+// De Request class wordt vervangen door de StoreItemRequest
+public function store(StoreItemRequest $request) {
+    // Haalt de gevalideerde gegevens op uit de StoreItemRequest class
+    $validated = $request->validated();
 
     $item = new Item();
 
@@ -64,12 +64,10 @@ public function store(Request $request) {
     /**
      * Update the specified resource in storage.
      */
-public function update(Request $request, Item $item) {
-    // Valideert de inkomende gegevens
-    $validated = $request->validate([
-        'name' => 'required|max:255',
-        'description' => 'nullable',
-    ]);
+// De Request class wordt vervangen door de UpdateItemRequest
+public function update(UpdateItemRequest $request, Item $item) {
+    // Haalt de gevalideerde gegevens op uit de UpdateItemRequest class
+    $validated = $request->validated();
 
     // Stelt de 'name' en 'description' waarden in op het gevalideerde gegevens
     $item->name = $validated['name'];
@@ -77,7 +75,6 @@ public function update(Request $request, Item $item) {
 
     $item->save();
 
-    // Stuurt de gebruiker naar de lijst van items
     return redirect()->route('items.index');
 }
     /**
